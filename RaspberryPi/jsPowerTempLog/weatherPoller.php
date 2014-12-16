@@ -43,7 +43,16 @@ if ($argv[3] != "") {
 $thisTime =  date('Y\-m\-d\ H\:i\:s');
 
 ///// get web page
-$html = file($weatherUrl);
+// Create a stream
+//$opts = Array('http'=>Array('method'=>"GET", 'timeout'=>5.0 ));
+//$context = stream_context_create($opts);
+
+//$html = file($weatherUrl, $context);
+//$html = file_get_contents($weatherUrl);
+//print_r($html):
+//echo $html;
+
+$html = file($weatherUrl, $context);
 
 ///// how many lines in this file
 $numLines = count($html);

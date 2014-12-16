@@ -14,20 +14,24 @@
 include ('functions/functions.php');
 include "classes/php_serial.class.php";
 
-$poll = "false";
-$debug = "false";
+$poll = 0;
+$debug = 0;
 
 if(isset($_GET['poll'])) {
-  $poll = "true";
-  lf();
+  if ($_GET['poll']) {
+    $poll = 1;
+    lf();
+  }
 }
 
 if(isset($_GET['debug'])) {
-  $debug = "true";
-  lf();
+  if ($_GET['debug']) {
+    $debug = 1;
+    lf();
+  }
 }
 
-if ( $debug == "true" ) {
+if ( $debug ) {
   echo "Debug: " . $debug;
   lf();
   echo "Poll: " . $poll;
@@ -38,6 +42,7 @@ $counter1 = 0;
 $counter2 = 0;
 $startOK = 0;
 $endOK = 0;
+$resetOK = 1;
 $noValues = 0;
 $trys = 0;
 
@@ -53,10 +58,10 @@ $serial->confFlowControl("none");
 // open serial
 $serial->deviceOpen();
 
-if ( $debug == "true" || $poll != "true" ) {
+if ( $debug || !$poll ) {
   $string1 = array("pollStart", $weatherWindDirMatch, $weatherWindDirDegMatch, $weatherAvgWindDirDegMatch, $weatherWindSpeedMatch, $weatherAverageWindSpeedMatch, $weatherRainSinceLastMatch, "pollEnd");
   
-  if ( $debug == "true" ) {
+  if ( $debug ) {
     echo "Identification string: ";
     lf();
     print_r($string1);
@@ -85,7 +90,7 @@ if ( $debug == "true" || $poll != "true" ) {
     
     // count values in string
     $noValues = (count($string2));
-    if ( $debug == "true" ) {
+    if ( $debug ) {
       print_r($string2);
       lf();
       echo "Received " . $noValues . " values";
@@ -96,7 +101,7 @@ if ( $debug == "true" || $poll != "true" ) {
   for ($counter1; $counter1 <= 7; $counter1++) {
     if ($string2[$counter1] == $weatherPollStartMatch) { 
       $startOK = 1;
-      if ( $debug == "true" && $startOK == 1 ) {
+      if ( $debug && $startOK == 1 ) {
 	lf();
 	echo "Start OK";
       }
@@ -104,7 +109,7 @@ if ( $debug == "true" || $poll != "true" ) {
     }
     else if (substr($string2[$counter1], 0, 7) == $weatherPollEndMatch) {
       $endOK = 1;
-      if ( $debug == "true" && $endOK == 1 ) {
+      if ( $debug && $endOK == 1 ) {
 	lf();
         echo "End OK";
       } 
@@ -131,7 +136,7 @@ if ( $debug == "true" || $poll != "true" ) {
   dlf();
 }
 
-if ($poll == "true") {
+if ($poll) {
   echo "Resetting values...";
   lf();
   $trys = 0;
@@ -152,7 +157,7 @@ if ($poll == "true") {
     $string3 = array("Values", "reset");
     // split string to array
     $string4 = explode(" ", $read);
-    if ($debug == "true" ) {
+    if ($debug ) {
       echo "Answer string: ";
       lf();
       print_r($string4);
