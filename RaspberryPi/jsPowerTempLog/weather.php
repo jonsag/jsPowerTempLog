@@ -14,18 +14,32 @@
 include ('functions/functions.php');
 include "classes/php_serial.class.php";
 
-if($_GET['poll']) {
+$poll = "false";
+$debug = "false";
+
+if(isset($_GET['poll'])) {
   $poll = "true";
+  lf();
 }
 
-if($_GET['debug']) {
+if(isset($_GET['debug'])) {
   $debug = "true";
+  lf();
+}
+
+if ( $debug == "true" ) {
+  echo "Debug: " . $debug;
+  lf();
+  echo "Poll: " . $poll;
+  dlf();
 }
 
 $counter1 = 0;
 $counter2 = 0;
 $startOK = 0;
 $endOK = 0;
+$noValues = 0;
+$trys = 0;
 
 define("PORT","/dev/ttyUSB0");
 $serial = new phpSerial;
@@ -39,29 +53,65 @@ $serial->confFlowControl("none");
 // open serial
 $serial->deviceOpen();
 
-if ($debug == "true" || $poll != "true" ) {
+if ( $debug == "true" || $poll != "true" ) {
+  $string1 = array("pollStart", $weatherWindDirMatch, $weatherWindDirDegMatch, $weatherAvgWindDirDegMatch, $weatherWindSpeedMatch, $weatherAverageWindSpeedMatch, $weatherRainSinceLastMatch, "pollEnd");
+  
+  if ( $debug == "true" ) {
+    echo "Identification string: ";
+    lf();
+    print_r($string1);
+    dlf();
+    echo "Answer string: ";
+    lf();
+  }
 
-  $string1 = array("pollStart", "Wind direction", "Wind direction degrees", "Average wind direction degrees", "Wind speed", "Average wind speed", "Rain since last poll", "pollEnd");
-  
-  // write p to serial
-  $serial->sendMessage("p");
-  
-  // read answer
-  $read = $serial->readPort();
-  
-  $string2 = explode(",", $read);
+  while ( $noValues != 8 ) {
+    $trys++;
+    if ( $trys > $maxTrys - 1 ) {
+      echo "Tried " . $trys . " times";
+      lf();
+      echo "Giving up...";
+      dlf();
+      break;
+    }
+    // write p to serial
+    $serial->sendMessage("p");
+    
+    // read answer
+    $read = $serial->readPort();
 
-  for ($counter1; $counter1 <= 6; $counter1++) {
+    // split string to array
+    $string2 = explode(",", $read);
+    
+    // count values in string
+    $noValues = (count($string2));
+    if ( $debug == "true" ) {
+      print_r($string2);
+      lf();
+      echo "Received " . $noValues . " values";
+      lf();
+    }
+  }
+
+  for ($counter1; $counter1 <= 7; $counter1++) {
     if ($string2[$counter1] == $weatherPollStartMatch) { 
       $startOK = 1;
+      if ( $debug == "true" && $startOK == 1 ) {
+	lf();
+	echo "Start OK";
+      }
       dlf();
     }
     else if (substr($string2[$counter1], 0, 7) == $weatherPollEndMatch) {
       $endOK = 1;
+      if ( $debug == "true" && $endOK == 1 ) {
+	lf();
+        echo "End OK";
+      } 
       dlf();
     }
     else {
-      echo $string1[$counter1] . ": " . $string2[$counter1];
+      echo $string1[$counter1] . $string2[$counter1];
       lf();
     }
   }
@@ -84,20 +134,41 @@ if ($debug == "true" || $poll != "true" ) {
 if ($poll == "true") {
   echo "Resetting values...";
   lf();
-  // write r to serial
-  $serial->sendMessage("r");
-  // read answer
-  $read = $serial->readPort();
-
-  $string3 = array("Values", "reset");
-  $string4 = explode(" ", $read);
-  if($string3[0] == substr($string4[0], 0, 6) && $string3[1] == substr($string4[1], 0, 5)) {
-    echo "Reset OK";
+  $trys = 0;
+  while ( $resetOK != 1) {
+    $trys++;
+    if ( $trys > $maxTrys - 1 ) {
+      echo "Tried " . $trys . " times";
+      lf();
+      echo "Giving up...";
+      dlf();
+      break;
+    }
+    // write r to serial
+    $serial->sendMessage("r");
+    // read answer
+    $read = $serial->readPort();
+    
+    $string3 = array("Values", "reset");
+    // split string to array
+    $string4 = explode(" ", $read);
+    if ($debug == "true" ) {
+      echo "Answer string: ";
+      lf();
+      print_r($string4);
+      lf();
+    }
+    if($string3[0] == substr($string4[0], 0, 6) && $string3[1] == substr($string4[1], 0, 5)) {
+      echo "Reset OK";
+      lf();
+      $resetOK = 1;
+    }
+    else {
+      echo "Failed to reset";
+      lf();
+      $resetOK = 0;
+    }
   }
-  else {
-    echo "Failed to reset";
-  }
-
 }
 
 // close device

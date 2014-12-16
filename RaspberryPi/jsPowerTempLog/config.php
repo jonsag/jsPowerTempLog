@@ -12,10 +12,7 @@ $password = "arduinopass";
 $db_con = mysql_connect($db_host,$username,$password);
 $connection_string = mysql_select_db($db_name);
 
-// Connection
-//mysql_connect($db_host,$username,$password);
-//mysql_select_db($db_name);
-
+// Connections
 $powerUrl = 'http://arduino01';
 $powerPollReset = 'http://arduino01/?pollReset';
 
@@ -51,4 +48,6 @@ $weatherWindSpeedMatch = "Wind speed: ";
 $weatherAverageWindSpeedMatch = "Average wind speed: ";
 $weatherRainSinceLastMatch = "Rain since last poll: ";
 
+
+$maxTrys = 20
 ?>
