@@ -11,6 +11,35 @@ function drawChart() {
      <?php
      include ('config.php');
      include ('getSql.php');
+
+     if(isset($_GET['values']) && !isset($_GET['groupBy'])) {
+       $values = $_GET['values'];
+     }
+
+
+     if(isset($_GET['groupBy'])) {
+       if ($_GET['groupBy'] == "hour") {
+	 $groupBy = " GROUP BY HOUR(ts)";
+       }
+       else if ($_GET['groupBy'] == "day") {
+	 $groupBy = " GROUP BY DAY(ts)";
+       }
+       else if ($_GET['groupBy'] == "week") {
+	 $groupBy = " GROUP BY WEEK(ts)";
+       }
+       else if ($_GET['groupBy'] == "month") {
+	 $groupBy = " GROUP BY MONTH(ts)";
+       }
+       else if ($_GET['groupBy'] == "year") {
+	 $groupBy = " GROUP BY YEAR(ts)";
+       }
+       else {
+	 $groupBy = "";
+       }
+     }
+
+     $counter = 0;
+     $valuesDisplayed = 0;
      
      // connect to mysql
      if (!$db_con) {
@@ -22,9 +51,8 @@ function drawChart() {
      
      echo "['Time','Average wind speed'],";
      
-    // select sql
-    //$sql = "SELECT * FROM powerLog";
     // do the query
+     $sql = $sql . $groupBy;
     $query = mysql_query($sql);
     
     // read result
@@ -41,20 +69,15 @@ function drawChart() {
   ]);
 
   var options = {
-  title: 
-
 <?php
-
-echo "'" . $table . " - Average wind speed ";
+echo "title: '" . $table . " - Average wind speed ";
 echo $selection;
 echo "',";
-
+echo "\nwidth: " . $chartWidth . ",";
+echo "\nheight: " . $chartHeight . ",";
+echo "\nlineWidth: " . $chartLineWidth . ",";
 ?>
-
-  width: 1200,
-  height: 550,
-  lineWidth: 1,
-
+  curveType: 'function',
   colors: ['red', 'green', 'blue']
   };
 
@@ -66,5 +89,8 @@ echo "',";
   </head>
   <body>
     <div id="chart_div"></div>
+<?php
+  echo "SQL = " . $sql;
+?>
   </body>
 </html>

@@ -10,6 +10,7 @@ function drawChart() {
 						    ['Time', 'Power kW'],
 
     <?php
+    include ('functions/functions.php');
     include ('config.php');
     include ('getSql.php');
 
@@ -91,9 +92,8 @@ function drawChart() {
     ]);
 
   var options = {
-  title:
 <?php
-  echo "'Power " . $selection;
+  echo "title: 'Power " . $selection;
   if(isset($values)) {
     echo ", averaging to " . $valuesDisplayed . " values, " . $averages . " measurements per point";
   }
@@ -104,16 +104,12 @@ function drawChart() {
     echo ", showing all " . $valuesDisplayed . " values";
   }
 
-  echo ", sql=" . $sql;
   echo "',";
+  echo "\nwidth: " . $chartWidth . ",";
+  echo "\nheight: " . $chartHeight . ",";
+  echo "\nlineWidth: " . $chartLineWidth . ",";
 ?>
-
-  width: 1200,
-  height: 550,
-  lineWidth: 1,
-
   curveType: 'function',
-
   colors: ['red','blue']
   };
 
@@ -125,5 +121,8 @@ function drawChart() {
   </head>
   <body>
     <div id="chart_div"></div>
+<?php
+  echo "SQL = " . $sql;
+?>
   </body>
 </html>

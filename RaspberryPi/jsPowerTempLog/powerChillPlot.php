@@ -99,13 +99,13 @@ function drawChart() {
   echo $plots . " plots - ";
   echo $values . " values";
   echo "',";
+  echo "\nwidth: " . $chartWidth . ",";
+  echo "\nheight: " . $chartHeight . ",";
+  echo "\npointSize: " . $plotPointSize . ",";
 ?>
   vAxis: {title: 'Power', minValue: 0, maxValue: 10},
   hAxis: {title: 'Chill factor', minValue: -15, maxValue: 15},
-  width: 1200,
-  height: 550,
   legend: 'none',
-  pointSize:1,
   colors: ['red']
   };
 

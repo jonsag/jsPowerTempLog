@@ -60,7 +60,9 @@ Pick a predefined interval<br>
 </select>
 
 <input type="button" name="button1" id="button1" value="How many rows will this generate?" onClick="parent.location='countRows.php?'+this.form.predef_interval.value">
-<br>
+<br><br>
+Charts options<br>
+-------------------------------------------------<br>
   Number of values displayed: 
 <select name="no_of_values">
 <option value="">All</option>
@@ -89,22 +91,22 @@ Pick a predefined interval<br>
 <input type="button" name="button4" id="button4" value="Create power excel" onClick="parent.location='excelData.php?table=powerLog&'+this.form.predef_interval.value">
 <input type="button" name="button5" id="button5" value="Create power csv" onClick="parent.location='csvData.php?table=powerLog&'+this.form.predef_interval.value">
 <br>
-<input type="button" name="button30" id="button30" value="Show currents chart" onClick="parent.location='currentsChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value">
+<input type="button" name="button30" id="button30" value="Show currents chart" onClick="parent.location='currentsChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
 <br>
-<input type="button" name="button6" id="button6" value="Show temp chart" onClick="parent.location='tempChart.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value">
+<input type="button" name="button6" id="button6" value="Show temp chart" onClick="parent.location='tempChart.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
 <input type="button" name="button7" id="button7" value="Print temp table" onClick="parent.location='printTempData.php?table=tempLog&'+this.form.predef_interval.value">
 <input type="button" name="button8" id="button8" value="Create temp excel" onClick="parent.location='excelData.php?table=tempLog&'+this.form.predef_interval.value">
 <input type="button" name="button9" id="button9" value="Create temp csv" onClick="parent.location='csvData.php?table=tempLog&'+this.form.predef_interval.value">
 <br>
-<input type="button" name="button19" id="button19" value="Show average wind chart" onClick="parent.location='averageWindChart.php?table=weatherLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value">
+<input type="button" name="button19" id="button19" value="Show average wind chart" onClick="parent.location='averageWindChart.php?table=weatherLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
 <input type="button" name="button20" id="button20" value="Print weather table" onClick="parent.location='printWeatherData.php?table=weatherLog&'+this.form.predef_interval.value">
 <input type="button" name="button21" id="button21" value="Create weather excel" onClick="parent.location='excelData.php?table=weatherLog&'+this.form.predef_interval.value">
 <input type="button" name="button22" id="button22" value="Create weather csv" onClick="parent.location='csvData.php?table=weatherLog&'+this.form.predef_interval.value">
 <br>
-<input type="button" name="button27" id="button27" value="Show chill factor chart" onClick="parent.location='chillFactorChart.php?'+this.form.predef_interval.value+'&'+this.form.no_of_values.value">
+<input type="button" name="button27" id="button27" value="Show chill factor chart" onClick="parent.location='chillFactorChart.php?'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
 <input type="button" name="button28" id="button28" value="Print chill factor table" onClick="parent.location='printChillFactorData.php?'+this.form.predef_interval.value">
 <br>
-<input type="button" name="button29" id="button29" value="Show power/chill chart" onClick="parent.location='powerChillChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value">
+<input type="button" name="button29" id="button29" value="Show power/chill chart" onClick="parent.location='powerChillChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
 <br>
 <input type="button" name="button32" id="button32" value="Show power/chill plot" onClick="parent.location='powerChillPlot.php?table=powerLog&'+this.form.predef_interval.value">
 </form>

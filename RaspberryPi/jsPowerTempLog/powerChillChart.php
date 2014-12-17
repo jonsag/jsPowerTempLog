@@ -72,17 +72,15 @@ function drawChart() {
     ]);
 
   var options = {
-  title:
 <?php
-  echo "'Power/Temp/Chill - ";
+  echo "title: 'Power/Temp/Chill - ";
   echo $selection;
   echo "',";
+  echo "\nwidth: " . $chartWidth . ",";
+  echo "\nheight: " . $chartHeight . ",";
+  echo "\nlineWidth: " . $chartLineWidth . ",";
 ?>
-
-  width: 1200,
-  height: 550,
-  lineWidth: 1,
-
+  curveType: 'function',
   colors: ['red', 'green', 'blue']
   };
 
@@ -94,5 +92,8 @@ function drawChart() {
   </head>
   <body>
     <div id="chart_div"></div>
+<?php
+  //  echo "SQL = " . $sql;
+?>
   </body>
 </html>

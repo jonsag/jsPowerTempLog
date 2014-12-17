@@ -48,6 +48,12 @@ $weatherWindSpeedMatch = "Wind speed: ";
 $weatherAverageWindSpeedMatch = "Average wind speed: ";
 $weatherRainSinceLastMatch = "Rain since last poll: ";
 
+// number of times to tra to connect
+$maxTrys = 20;
 
-$maxTrys = 20
+// charts
+$chartWidth = 1200;
+$chartHeight = 550;
+$chartLineWidth = 1;
+$plotPointSize = 1
 ?>

@@ -13,6 +13,35 @@ function drawChart() {
     include ('config.php');
     include ('getSql.php');
 
+    if(isset($_GET['values']) && !isset($_GET['groupBy'])) {
+      $values = $_GET['values'];
+    }
+
+
+    if(isset($_GET['groupBy'])) {
+      if ($_GET['groupBy'] == "hour") {
+	$groupBy = " GROUP BY HOUR(ts)";
+      }
+      else if ($_GET['groupBy'] == "day") {
+	$groupBy = " GROUP BY DAY(ts)";
+      }
+      else if ($_GET['groupBy'] == "week") {
+	$groupBy = " GROUP BY WEEK(ts)";
+      }
+      else if ($_GET['groupBy'] == "month") {
+	$groupBy = " GROUP BY MONTH(ts)";
+      }
+      else if ($_GET['groupBy'] == "year") {
+	$groupBy = " GROUP BY YEAR(ts)";
+      }
+      else {
+	$groupBy = "";
+      }
+    }
+
+    $counter = 0;
+    $valuesDisplayed = 0;
+
     $rows = 0;
 
     // connect to mysql
@@ -23,8 +52,8 @@ function drawChart() {
     // select database
     mysql_select_db($db_name) or die(mysql_error());
     
-    $newSql=$sql . " AND 'currentR1'!='0'";
-
+    //$newSql=$sql . " AND 'currentR1'!='0'";
+    $sql = $sql . $groupBy;
     $query = mysql_query($sql);
     
     // read result
@@ -41,17 +70,15 @@ function drawChart() {
     ]);
 
   var options = {
-  title: 
 <?php
-  echo "'" . $table . " - Average currents ";
+  echo "title: '" . $table . " - Average currents ";
   echo $selection;
-  echo ", sql=" . $sql;
   echo "',";
+echo "\nwidth: " . $chartWidth . ",";
+echo "\nheight: " . $chartHeight . ",";
+echo "\nlineWidth: " . $chartLineWidth . ",";
 ?>
-  width: 1200,
-  height: 550,
-  lineWidth: 1,
-
+  curveType: 'function',
   colors: ['black', 'brown', 'blue']
   };
 
@@ -63,5 +90,8 @@ function drawChart() {
   </head>
   <body>
     <div id="chart_div"></div>
+<?php
+  echo "SQL = " . $sql;
+?>
   </body>
 </html>

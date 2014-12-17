@@ -77,10 +77,12 @@ var data = google.visualization.arrayToDataTable([
 
 var options = {
 title:'wind chill factor',
-width: 1200,
-height: 550,
-lineWidth: 1,
-
+<?php
+echo "\nwidth: " . $chartWidth . ",";
+echo "\nheight: " . $chartHeight . ",";
+echo "\nlineWidth: " . $chartLineWidth . ",";
+?>
+curveType: 'function',
 colors: ['red', 'black', 'blue']
 };
 
@@ -92,5 +94,8 @@ chart.draw(data, options);
   </head>
   <body>
     <div id="chart_div"></div>
+<?php
+  //  echo "SQL = " . $sql;
+?>
   </body>
 </html> 
