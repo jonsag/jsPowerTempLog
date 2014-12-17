@@ -8,10 +8,10 @@ function drawChart() {
 
 <?php
 
-include ('config.php');
-include ('functions/functions.php');
+include ('includes/config.php');
+include ('includes/functions.php');
 
-include ('functions/getSql.function.php');
+include ('includes/getSql.function.php');
 
 $counter1 = 0;
 $counter2 = 0;

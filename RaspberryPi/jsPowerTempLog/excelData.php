@@ -1,7 +1,7 @@
 <?php
 ///// config file
-include ('config.php');
-include ('getSql.php');
+include ('includes/config.php');
+include ('includes/getSql.php');
 
 $selected = false;
 

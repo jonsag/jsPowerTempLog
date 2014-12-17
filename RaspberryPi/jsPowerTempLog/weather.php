@@ -10,8 +10,8 @@
 <br>
 
 <?php
-   include ('config.php');
-include ('functions/functions.php');
+   include ('includes/config.php');
+include ('includes/functions.php');
 include "classes/php_serial.class.php";
 
 $poll = 0;

@@ -1,8 +1,8 @@
  <?php 
-include ("config.php");
-include ('functions/functions.php');
+include ("includes/config.php");
+include ('includes/functions.php');
 
-include ('getSql.php');
+include ('includes/getSql.php');
 
 $selected = false;
 

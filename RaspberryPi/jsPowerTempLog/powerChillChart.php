@@ -10,8 +10,8 @@ function drawChart() {
 						    ['Time', 'Power kW', 'Temp', 'Chill factor'],
 
     <?php
-    include ('config.php');
-    include ('getSql.php');
+    include ('includes/config.php');
+    include ('includes/getSql.php');
 
     // connect to mysql
     if (!$db_con) {

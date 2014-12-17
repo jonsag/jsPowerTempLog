@@ -10,8 +10,8 @@ function drawChart() {
 						    ['Chill factor', 'Power'],
 
     <?php
-    include ('config.php');
-    include ('getSql.php');
+    include ('includes/config.php');
+    include ('includes/getSql.php');
 
     $samples = 30;
     $counter = 0;

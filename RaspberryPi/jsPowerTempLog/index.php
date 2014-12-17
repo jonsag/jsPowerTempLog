@@ -12,8 +12,8 @@ $mydate = isset($_POST["date1"]) ? $_POST["date1"] : "";
 
   <?php
 ///// include configuration file
-include ('config.php');
-include ('functions/functions.php');
+include ('includes/config.php');
+include ('includes/functions.php');
 // Load the calendar class
 require('calendar/tc_calendar.php');
 ?>

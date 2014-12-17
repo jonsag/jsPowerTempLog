@@ -10,8 +10,8 @@
 <br>
 
 <?php
-include ('config.php');
-include ('functions/functions.php');
+include ('includes/config.php');
+include ('includes/functions.php');
 
 //var_dump($dallasTemps);
 

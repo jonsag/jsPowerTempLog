@@ -9,8 +9,8 @@ function drawChart() {
   var data = google.visualization.arrayToDataTable([
 
      <?php
-     include ('config.php');
-     include ('getSql.php');
+     include ('includes/config.php');
+     include ('includes/getSql.php');
 
      if(isset($_GET['values']) && !isset($_GET['groupBy'])) {
        $values = $_GET['values'];

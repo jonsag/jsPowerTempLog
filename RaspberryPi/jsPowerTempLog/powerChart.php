@@ -10,9 +10,9 @@ function drawChart() {
 						    ['Time', 'Power kW'],
 
     <?php
-    include ('functions/functions.php');
-    include ('config.php');
-    include ('getSql.php');
+    include ('includes/functions.php');
+    include ('includes/config.php');
+    include ('includes/getSql.php');
 
     if(isset($_GET['values']) && !isset($_GET['groupBy'])) {
       $values = $_GET['values'];

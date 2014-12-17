@@ -10,8 +10,8 @@ function drawChart() {
     ['Time', 'R1', 'S2', 'T3'],
 
     <?php
-    include ('config.php');
-    include ('getSql.php');
+    include ('includes/config.php');
+    include ('includes/getSql.php');
 
     if(isset($_GET['values']) && !isset($_GET['groupBy'])) {
       $values = $_GET['values'];

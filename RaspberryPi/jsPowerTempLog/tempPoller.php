@@ -4,8 +4,8 @@
 error_reporting (E_ALL ^ E_NOTICE);
 
 ///// include configuration file
-include ('config.php');
-include ('functions/functions.php');
+include ('includes/config.php');
+include ('includes/functions.php');
 
 ///// debug argument
 if ($argv[1] == "") {
