@@ -2,6 +2,7 @@
 include ("includes/config.php");
 include ('includes/functions.php');
 
+$columns = "*";
 include ('includes/getSql.php');
 
 $selected = false;

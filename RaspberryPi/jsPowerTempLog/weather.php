@@ -42,7 +42,7 @@ $counter1 = 0;
 $counter2 = 0;
 $startOK = 0;
 $endOK = 0;
-$resetOK = 1;
+$resetOK = 0;
 $noValues = 0;
 $trys = 0;
 
@@ -140,7 +140,7 @@ if ($poll) {
   echo "Resetting values...";
   lf();
   $trys = 0;
-  while ( $resetOK != 1) {
+  while ( $resetOK != 1 ) {
     $trys++;
     if ( $trys > $maxTrys - 1 ) {
       echo "Tried " . $trys . " times";
@@ -169,8 +169,11 @@ if ($poll) {
       $resetOK = 1;
     }
     else {
-      echo "Failed to reset";
-      lf();
+      if ( $debug ) {
+	echo "Failed to reset";
+	lf();
+	echo "Trying again...";
+      }
       $resetOK = 0;
     }
   }

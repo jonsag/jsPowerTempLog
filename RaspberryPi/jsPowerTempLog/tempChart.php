@@ -10,7 +10,6 @@ function drawChart() {
 
      <?php
      include ('includes/config.php');
-     include ('includes/getSql.php');
 
      if(isset($_GET['values']) && !isset($_GET['groupBy'])) {
        $values = $_GET['values'];
@@ -18,6 +17,7 @@ function drawChart() {
 
 
      if(isset($_GET['groupBy'])) {
+       $columns = "ts, AVG(temp0) AS temp0 , AVG(temp1) AS temp1";
        if ($_GET['groupBy'] == "hour") {
 	 $groupBy = " GROUP BY HOUR(ts)";
        }
@@ -37,6 +37,11 @@ function drawChart() {
 	 $groupBy = "";
        }
      }
+     else {
+       $columns = "ts, temp0, temp1";
+     }
+
+     include ('includes/getSql.php');     
 
      $counter = 0;
      $valuesDisplayed = 0;

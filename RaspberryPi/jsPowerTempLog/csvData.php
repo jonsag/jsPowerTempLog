@@ -1,6 +1,8 @@
 <?php
 ///// config file
 include ('includes/config.php');
+
+$columns = "*";
 include ('includes/getSql.php');
 
 $selected = false;

@@ -12,14 +12,13 @@ function drawChart() {
     <?php
     include ('includes/functions.php');
     include ('includes/config.php');
-    include ('includes/getSql.php');
 
     if(isset($_GET['values']) && !isset($_GET['groupBy'])) {
       $values = $_GET['values'];
     }
 
-
     if(isset($_GET['groupBy'])) {
+      $columns = "ts, AVG(currentAverageR1) AS currentAverageR1, AVG(currentAverageS2) AS currentAverageS2, AVG(currentAverageT3) AS currentAverageT3";
      if ($_GET['groupBy'] == "hour") {
        $groupBy = " GROUP BY HOUR(ts)";
      }
@@ -39,6 +38,11 @@ function drawChart() {
        $groupBy = "";
      }
     }
+    else {
+      $columns = "ts, currentAverageR1, currentAverageS2, currentAverageT3";
+    }
+
+    include ('includes/getSql.php');
 
     $counter = 0;
     $valuesDisplayed = 0;
