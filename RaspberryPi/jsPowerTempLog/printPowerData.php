@@ -1,28 +1,28 @@
- <?php 
-include ("includes/config.php");
+<?php 
 include ('includes/functions.php');
-
-$columns = "*";
-
+include ('includes/config.php');
 include ('includes/getSql.php');
 
-$selected = false;
-
-///// catch attributes
-if (isset($_GET['time'])) {
-  $timeSelection = $_GET['time'];
-}
-
-
-
-///// connect to database
+// connect to mysql
 if (!$db_con) {
   die('Could not connect: ' . mysql_error());
 }
-
-///// choose database
+// select database
 mysql_select_db($db_name) or die(mysql_error());
 
+// construct sql
+if(isset($_GET['groupBy'])) {
+  $columns = "ts, ROUND(AVG(currentR1), 2) AS currentR1, ROUND(AVG(currentS2), 2) AS currentS2, ROUND(AVG(currentT3), 2) AS currentT3, ROUND(AVG(currentAverageR1), 2) AS currentAverageR1, ROUND(AVG(currentAverageS2), 2) AS currentAverageS2, ROUND(AVG(currentAverageT3), 2) AS currentAverageT3, ROUND(AVG(temp), 2) AS temp, ROUND(AVG(pulses), 2) AS pulses, event";
+}
+else {
+  //$columns = "ts, currentR1, currentS2, currentT3, currentAverageR1, currentAverageS2, currentAverageT3, temp0. pulses, event";
+  $columns = "*";
+}
+$answer = getSql($_GET, $columns);
+$sql = $answer[0];
+$selection = $answer[1];
+
+// run sql
 $query = mysql_query($sql);
 
 Print "<table border cellpadding=3>";
@@ -51,4 +51,4 @@ Print "</table>";
 // close connection to mysql
 mysql_close($db_con);
 
- ?> 
+?> 

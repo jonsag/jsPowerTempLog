@@ -11,6 +11,8 @@ function drawChart() {
 
     <?php
     include ('includes/config.php');
+
+    $columns = "*";
     include ('includes/getSql.php');
 
     $samples = 30;

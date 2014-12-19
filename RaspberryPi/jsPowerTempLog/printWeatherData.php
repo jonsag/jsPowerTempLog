@@ -1,25 +1,27 @@
  <?php 
-include ("includes/config.php");
 include ('includes/functions.php');
-
-$columns = "*";
+include ('includes/config.php');
 include ('includes/getSql.php');
 
-$selected = false;
-
-///// catch attributes
-if (isset($_GET['time'])) {
-  $timeSelection = $_GET['time'];
-}
-
-///// connect to database
+// connect to mysql
 if (!$db_con) {
   die('Could not connect: ' . mysql_error());
 }
-
-///// choose database
+// select database
 mysql_select_db($db_name) or die(mysql_error());
 
+// construct sql
+if(isset($_GET['groupBy'])) {
+  $columns = "ts, windDirection, windDirectionValue, averageWindDirectionValue, ROUND(AVG(windSpeed), 2) AS windSpeed, ROUND(AVG(averageWindSpeed), 2) AS averageWindSpeed, ROUND(SUM(rainSinceLast), 2) AS rainSinceLast, ROUND(AVG(temp), 2) AS temp, event";
+}
+else {
+  $columns = "*";
+}
+$answer = getSql($_GET, $columns);
+$sql = $answer[0];
+$selection = $answer[1];
+
+// run sql
 $query = mysql_query($sql);
 
 Print "<table border cellpadding=3>";

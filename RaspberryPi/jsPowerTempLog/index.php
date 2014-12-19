@@ -10,7 +10,7 @@ if(!defined("L_LANG") || L_LANG == "L_LANG")
 $mydate = isset($_POST["date1"]) ? $_POST["date1"] : "";
 ?>
 
-  <?php
+<?php
 ///// include configuration file
 include ('includes/config.php');
 include ('includes/functions.php');
@@ -22,10 +22,10 @@ require('calendar/tc_calendar.php');
 <head>
 <title>JS Power Temp Log</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=7" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
 
 <script type="text/javascript">
-  function count_rows()
+function count_rows()
 {
   alert(result);
 }
@@ -58,12 +58,11 @@ Pick a predefined interval<br>
 <option value="last=day">Yesterday</option>
 <option value="">Everything</option>
 </select>
-
 <input type="button" name="button1" id="button1" value="How many rows will this generate?" onClick="parent.location='countRows.php?'+this.form.predef_interval.value">
 <br><br>
 Charts options<br>
 -------------------------------------------------<br>
-  Number of values displayed: 
+Number of values displayed: 
 <select name="no_of_values">
 <option value="">All</option>
 <option value="values=1000">1000</option>
@@ -72,8 +71,9 @@ Charts options<br>
 <option value="values=50">50</option>
 <option value="values=20">20</option>
 </select>
+(only relevant on charts)
 <br>
-  Group by: 
+Group by: 
 <select name="group_by">
 <option value="">No grouping</option>
 <option value="groupBy=hour">hour</option>
@@ -82,44 +82,49 @@ Charts options<br>
 <option value="groupBy=month">month</option>
 <option value="groupBy=year">year</option>
 </select>
-  (if set, above option does not matter)
+(if set, above option does not matter)
+<br>
+View sql on bottom of page:
+<input type="radio" name="view_sql" value="view_sql=0" checked>No
+<input type="radio" name="view_sql" value="view_sql=1">Yes
 <br>
 <br>
-
-<input type="button" name="button2" id="button2" value="Show power chart" onClick="parent.location='powerChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
-<input type="button" name="button3" id="button3" value="Print power table" onClick="parent.location='printPowerData.php?table=powerLog&'+this.form.predef_interval.value">
+<input type="button" name="button2" id="button2" value="Show power chart" onClick="window.open('powerChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
+<input type="button" name="button3" id="button3" value="Print power table" onClick="window.open('printPowerData.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.group_by.value)">
 <input type="button" name="button4" id="button4" value="Create power excel" onClick="parent.location='excelData.php?table=powerLog&'+this.form.predef_interval.value">
 <input type="button" name="button5" id="button5" value="Create power csv" onClick="parent.location='csvData.php?table=powerLog&'+this.form.predef_interval.value">
 <br>
-<input type="button" name="button30" id="button30" value="Show currents chart" onClick="parent.location='currentsChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
+<input type="button" name="button30" id="button30" value="Show currents chart" onClick="window.open('currentsChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
 <br>
-<input type="button" name="button6" id="button6" value="Show temp chart" onClick="parent.location='tempChart.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
-<input type="button" name="button7" id="button7" value="Print temp table" onClick="parent.location='printTempData.php?table=tempLog&'+this.form.predef_interval.value">
+  <input type="button" name="button6" id="button6" value="Show temp chart" onClick="window.open('tempChart.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
+<input type="button" name="button7" id="button7" value="Print temp table" onClick="window.open('printTempData.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.group_by.value)">
 <input type="button" name="button8" id="button8" value="Create temp excel" onClick="parent.location='excelData.php?table=tempLog&'+this.form.predef_interval.value">
-<input type="button" name="button9" id="button9" value="Create temp csv" onClick="parent.location='csvData.php?table=tempLog&'+this.form.predef_interval.value">
+<input type="button" name="button9" id="button9" value="Create temp csv" onClick="parent.location=('csvData.php?table=tempLog&'+this.form.predef_interval.value)">
 <br>
-<input type="button" name="button19" id="button19" value="Show average wind chart" onClick="parent.location='averageWindChart.php?table=weatherLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
-<input type="button" name="button20" id="button20" value="Print weather table" onClick="parent.location='printWeatherData.php?table=weatherLog&'+this.form.predef_interval.value">
+<input type="button" name="button19" id="button19" value="Show average wind chart" onClick="window.open('averageWindChart.php?table=weatherLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
+<input type="button" name="button20" id="button20" value="Print weather table" onClick="window.open('printWeatherData.php?table=weatherLog&'+this.form.predef_interval.value+'&'+this.form.group_by.value)">
 <input type="button" name="button21" id="button21" value="Create weather excel" onClick="parent.location='excelData.php?table=weatherLog&'+this.form.predef_interval.value">
 <input type="button" name="button22" id="button22" value="Create weather csv" onClick="parent.location='csvData.php?table=weatherLog&'+this.form.predef_interval.value">
 <br>
-<input type="button" name="button27" id="button27" value="Show chill factor chart" onClick="parent.location='chillFactorChart.php?'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
-<input type="button" name="button28" id="button28" value="Print chill factor table" onClick="parent.location='printChillFactorData.php?'+this.form.predef_interval.value">
-<br>
-<input type="button" name="button29" id="button29" value="Show power/chill chart" onClick="parent.location='powerChillChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value">
-<br>
-<input type="button" name="button32" id="button32" value="Show power/chill plot" onClick="parent.location='powerChillPlot.php?table=powerLog&'+this.form.predef_interval.value">
-</form>
 <br>
 
-<br>
-Specify an interval<br>
+Special<br>
 -------------------------------------------------<br>
-  
-  <form>
-  
-  <?php
-  $thisweek = date('W');
+<input type="button" name="button27" id="button27" value="Show chill factor chart" onClick="window.open('chillFactorChart.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
+<input type="button" name="button28" id="button28" value="Print chill factor table" onClick="window.open('printChillFactorData.php?'+this.form.predef_interval.value+'&'+this.form.group_by.value)">
+<br>
+<input type="button" name="button29" id="button29" value="Show power/chill chart" onClick="window.open('powerChillChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
+<br>
+<input type="button" name="button32" id="button32" value="Show power/chill plot" onClick="window.open('powerChillPlot.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.view_sql.value)">
+</form>
+<br>
+<br>
+
+Specify an interval<br>
+-------------------------------------------------<br>  
+<form>
+<?php
+$thisweek = date('W');
 $thisyear = date('Y');
 
 function getDaysInWeek ($weekNumber, $year, $dayStart = 1) {
@@ -144,7 +149,7 @@ $date4_default = date('Y-m-d', $dayTimes[0]);
 $date5_default = date('Y-m-d', $dayTimes[(sizeof($dayTimes)-1)]);
 ?>
   
-  <?php
+<?php
 $myCalendar = new tc_calendar("date4", true, false);
 $myCalendar->setIcon("calendar/images/iconCalendar.gif");
 $myCalendar->setDate(date('d', strtotime($date4_default)), date('m', strtotime($date4_default)), date('Y', strtotime($date4_default)));
@@ -170,20 +175,20 @@ $myCalendar->writeScript();
 <br>
 <br>
 
-<input type="button" name="button11" id="button11" value="Show power chart" onClick="parent.location='powerChart.php?table=powerLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
-<input type="button" name="button12" id="button12" value="Print power table" onClick="parent.location='printPowerData.php?table=powerLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
+<input type="button" name="button11" id="button11" value="Show power chart" onClick="window.open('powerChart.php?table=powerLog&start='+this.form.date4.value+'&&end='+this.form.date5.value)">
+<input type="button" name="button12" id="button12" value="Print power table" onClick="window.open('printPowerData.php?table=powerLog&start='+this.form.date4.value+'&&end='+this.form.date5.value)">
 <input type="button" name="button13" id="button13" value="Create power excel" onClick="parent.location='excelData.php?table=powerLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
 <input type="button" name="button14" id="button14" value="Create power csv" onClick="parent.location='csvData.php?table=powerLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
 <br>
-<input type="button" name="button31" id="button31" value="Show currents chart" onClick="parent.location='currentsChart.php?table=powerLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
+<input type="button" name="button31" id="button31" value="Show currents chart" onClick="window.open('currentsChart.php?table=powerLog&start='+this.form.date4.value+'&&end='+this.form.date5.value)">
 <br>
-<input type="button" name="button15" id="button16" value="Show temp chart" onClick="parent.location='tempChart.php?table=tempLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
-<input type="button" name="button16" id="button16" value="Print temp table" onClick="parent.location='printTempData.php?table=tempLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
+<input type="button" name="button15" id="button16" value="Show temp chart" onClick="window.open('tempChart.php?table=tempLog&start='+this.form.date4.value+'&&end='+this.form.date5.value)">
+<input type="button" name="button16" id="button16" value="Print temp table" onClick="window.open('printTempData.php?table=tempLog&start='+this.form.date4.value+'&&end='+this.form.date5.value)">
 <input type="button" name="button17" id="button17" value="Create temp excel" onClick="parent.location='excelData.php?table=tempLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
 <input type="button" name="button18" id="button18" value="Create temp csv" onClick="parent.location='csvData.php?table=tempLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
 <br>
-<input type="button" name="button23" id="button23" value="Show average wind chart" onClick="parent.location='averageWindChart.php?table=weatherLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
-<input type="button" name="button24" id="button24" value="Print weather table" onClick="parent.location='printWeatherData.php?table=weatherLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
+<input type="button" name="button23" id="button23" value="Show average wind chart" onClick="window.open('averageWindChart.php?table=weatherLog&start='+this.form.date4.value+'&&end='+this.form.date5.value)">
+<input type="button" name="button24" id="button24" value="Print weather table" onClick="window.open('printWeatherData.php?table=weatherLog&start='+this.form.date4.value+'&&end='+this.form.date5.value)">
 <input type="button" name="button25" id="button25" value="Create weather excel" onClick="parent.location='excelData.php?table=weatherLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
 <input type="button" name="button26" id="button26" value="Create weather csv" onClick="parent.location='csvData.php?table=weatherLog&start='+this.form.date4.value+'&&end='+this.form.date5.value">
 </form>
