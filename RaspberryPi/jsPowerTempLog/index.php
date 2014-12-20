@@ -71,7 +71,7 @@ Number of values displayed:
 <option value="values=50">50</option>
 <option value="values=20">20</option>
 </select>
-(only relevant on charts)
+(only relevant on regular charts)
 <br>
 Group by: 
 <select name="group_by">
@@ -89,6 +89,9 @@ View sql on bottom of page:
 <input type="radio" name="view_sql" value="view_sql=1">Yes
 <br>
 <br>
+
+Regular
+-------------------------------------------------<br>
 <input type="button" name="button2" id="button2" value="Show power chart" onClick="window.open('powerChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
 <input type="button" name="button3" id="button3" value="Print power table" onClick="window.open('printPowerData.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.group_by.value)">
 <input type="button" name="button4" id="button4" value="Create power excel" onClick="parent.location='excelData.php?table=powerLog&'+this.form.predef_interval.value">
@@ -113,9 +116,9 @@ Special<br>
 <input type="button" name="button27" id="button27" value="Show chill factor chart" onClick="window.open('chillFactorChart.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
 <input type="button" name="button28" id="button28" value="Print chill factor table" onClick="window.open('printChillFactorData.php?'+this.form.predef_interval.value+'&'+this.form.group_by.value)">
 <br>
-<input type="button" name="button29" id="button29" value="Show power/chill chart" onClick="window.open('powerChillChart.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
+<input type="button" name="button29" id="button29" value="Show power/chill chart" onClick="window.open('powerChillChart.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
 <br>
-<input type="button" name="button32" id="button32" value="Show power/chill plot" onClick="window.open('powerChillPlot.php?table=powerLog&'+this.form.predef_interval.value+'&'+this.form.view_sql.value)">
+<input type="button" name="button32" id="button32" value="Show power/chill plot" onClick="window.open('powerChillPlot.php?table=tempLog&'+this.form.predef_interval.value+'&'+this.form.no_of_values.value+'&'+this.form.group_by.value+'&'+this.form.view_sql.value)">
 </form>
 <br>
 <br>

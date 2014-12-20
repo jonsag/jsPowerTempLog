@@ -32,11 +32,6 @@ else {
   die('Invalid query: ' . mysql_error());
 }
 
-// should we limit number of values displayed
-if( isset($_GET['values']) && !isset($_GET['groupBy']) ) {
-  $values = $_GET['values'];
-}
-
 // construct sql
 if( isset($_GET['groupBy']) ) {
   $columns = "ts, ROUND(AVG(temp0), 2) AS temp0 , ROUND(AVG(temp1), 2) AS temp1, ROUND(AVG(temp2), 2) AS temp2, ROUND(AVG(temp3), 2) AS temp3, ROUND(AVG(temp4), 2) AS temp4, ROUND(AVG(temp5), 2) AS temp5, ROUND(AVG(temp6), 2) AS temp6, ROUND(AVG(temp7), 2) AS temp7, ROUND(AVG(temp8), 2) AS temp8, ROUND(AVG(temp9), 2) AS temp9, ROUND(AVG(temp10), 2) AS temp10";
@@ -57,8 +52,32 @@ $valuesDisplayed = 0;
 while($row = mysql_fetch_array( $result1 )) {
   $timeStamp = $row['ts'];
   $outdoorTemp = $row[$id];
-  $time = substr($row['ts'], 0, -3);
-  $sql = "SELECT averageWindSpeed FROM weatherLog WHERE `ts` LIKE '{$time}%'";
+  if ( isset($_GET['groupBy']) ) {
+    if ( $_GET['groupBy'] == "hour" ) {
+      $time = substr($row['ts'], 0, -6);
+      $sql = "SELECT AVG(averageWindSpeed) FROM weatherLog WHERE `ts` LIKE '{$time}%' GROUP BY YEAR(ts), MONTH(ts), DAY(ts), HOUR(ts)";
+    }
+    else if ( $_GET['groupBy'] == "day" ){
+      $time = substr($row['ts'], 0, -9);
+      $sql = "SELECT AVG(averageWindSpeed) FROM weatherLog WHERE `ts` LIKE '{$time}%' GROUP BY YEAR(ts), MONTH(ts), DAY(ts)";
+    }
+    else if ( $_GET['groupBy'] == "week" ){
+      $time = substr($row['ts'], 0, -9);
+      $sql = "SELECT AVG(averageWindSpeed) FROM weatherLog WHERE `ts` LIKE '{$time}%' GROUP BY YEAR(ts), WEEK(ts)";
+    }
+    else if ( $_GET['groupBy'] == "month" ){
+      $time = substr($row['ts'], 0, -12);
+      $sql = "SELECT AVG(averageWindSpeed) FROM weatherLog WHERE `ts` LIKE '{$time}%' GROUP BY YEAR(ts), MONTH(ts)";
+    }
+    else if ( $_GET['groupBy'] == "year" ){
+      $time = substr($row['ts'], 0, -15);
+      $sql = "SELECT AVG(averageWindSpeed) FROM weatherLog WHERE `ts` LIKE '{$time}%' GROUP BY YEAR(ts)";
+    }
+  }
+  else {
+    $time = substr($row['ts'], 0, -3);
+    $sql = "SELECT averageWindSpeed FROM weatherLog WHERE `ts` LIKE '{$time}%'";
+  }
   $result2 = mysql_query($sql);
   $sqlsRun[] = $sql;
   if ($result2) {
@@ -81,7 +100,7 @@ mysql_close($db_con);
 ]);
 var options = {
 <?php
-echo "title:'wind chill factor " . $selection;
+echo "title:'wind chill factor - " . $selection;
 if(isset($values)) {
   echo ", averaging to " . $valuesDisplayed . " values, " . $measuresPerPoint . " measurements per point";
 }
